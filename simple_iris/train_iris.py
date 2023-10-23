@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.optim as optim
+from tqdm import tqdm
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
@@ -14,9 +15,9 @@ y = data.target
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 
 # 1c. Normalize dataset
-normalizer = StandardScaler()
-normalizer.fit_transform(X_train)
-normalizer.transform(X_test)
+scaler = StandardScaler()
+scaler.fit_transform(X_train)
+scaler.transform(X_test)
 
 # 1d. Convert to tensor
 X_train = torch.tensor(X_train, dtype=torch.float32)
@@ -41,13 +42,16 @@ accs = []
 
 
 # 2c. Train
-for epoch in num_epochs:
+for epoch in range(num_epochs):
+    print(f"Epoch {epoch}: ")
     epoch_loss = []
-    for x, y in zip(X_train, y_train):
+    for sample, label in zip(X_train, y_train):
         optimizer.zero_grad()
-        y_pred = model(x)
-        loss = criterion(y_pred, y)
-        epoch_loss.append(loss)
+        pred = model(sample)
+        loss = criterion(pred, label.long())
+        epoch_loss.append(loss.item())
         loss.backward()
         optimizer.step()
     losses.append(sum(epoch_loss)/len(epoch_loss))
+
+print(losses)
