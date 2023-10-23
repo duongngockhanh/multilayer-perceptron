@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.optim as optim
+import matplotlib.pyplot as plt
 from tqdm import tqdm
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
@@ -45,7 +46,7 @@ accs = []
 for epoch in range(num_epochs):
     print(f"Epoch {epoch}: ")
     epoch_loss = []
-    for sample, label in zip(X_train, y_train):
+    for sample, label in tqdm(zip(X_train, y_train)):
         optimizer.zero_grad()
         pred = model(sample)
         loss = criterion(pred, label.long())
@@ -54,4 +55,17 @@ for epoch in range(num_epochs):
         optimizer.step()
     losses.append(sum(epoch_loss)/len(epoch_loss))
 
-print(losses)
+# 3a. Evaluate
+with torch.no_grad():
+    preds = model(X_test)
+
+y_preds = torch.argmax(preds, dim=1)
+acc = sum(y_preds == y_test)/len(y_test)
+print(f"Accuracy: {acc.item() * 100}%")
+
+# 3b. Visulize
+plt.plot(losses)
+plt.xlabel("epoch")
+plt.ylabel("loss")
+plt.title("Loss Curve")
+plt.savefig("loss.png")
