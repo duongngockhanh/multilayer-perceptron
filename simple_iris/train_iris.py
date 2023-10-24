@@ -43,10 +43,9 @@ accs = []
 
 
 # 2c. Train
-for epoch in range(num_epochs):
-    print(f"Epoch {epoch}: ")
+for epoch in tqdm(range(num_epochs)):
     epoch_loss = []
-    for sample, label in tqdm(zip(X_train, y_train)):
+    for sample, label in zip(X_train, y_train):
         optimizer.zero_grad()
         pred = model(sample)
         loss = criterion(pred, label.long())
@@ -69,3 +68,6 @@ plt.xlabel("epoch")
 plt.ylabel("loss")
 plt.title("Loss Curve")
 plt.savefig("loss.png")
+
+# 3c. Save weights
+torch.save(model.state_dict(), "last.pt")
