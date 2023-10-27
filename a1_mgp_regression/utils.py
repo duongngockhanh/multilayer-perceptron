@@ -37,7 +37,7 @@ def visualize(train_losses, val_losses, train_r2, val_r2):
 
     ax[1].plot(train_r2, label="train_r2")
     ax[1].plot(val_r2, label="val_r2")
-    ax[0].set(
+    ax[1].set(
         xlabel="Epoch",
         ylabel="R2",
         title="Train Val R2"
