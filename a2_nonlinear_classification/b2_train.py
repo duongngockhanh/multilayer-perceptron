@@ -38,6 +38,7 @@ class SoftMaxRegression(nn.Module):
         self.relu = nn.ReLU()
     def forward(self, x):
         x = self.linear1(x)
+        x = self.relu(x)
         x = self.linear2(x)
         out = self.relu(x)
         return out

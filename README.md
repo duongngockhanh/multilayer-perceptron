@@ -16,3 +16,5 @@ Specifically, with the input being a point determined by its coordinates x, y, p
 
 ## 3. FER Classification 
 Apply Multilayer Perceptron to solve the Emotion Classification problem based on the FER 2013 dataset.
+
+Because CNN is not used, the model performance is not good.

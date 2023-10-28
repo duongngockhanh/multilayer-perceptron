@@ -78,7 +78,6 @@ for epoch in range(num_epochs):
     train_labels = []
     train_pred = []
     for samples, labels in train_loader:
-        optimizer.zero_grad()
         samples, labels = samples.to(device), labels.to(device)
         y_pred = model(samples)
         loss = criterion(y_pred, labels)

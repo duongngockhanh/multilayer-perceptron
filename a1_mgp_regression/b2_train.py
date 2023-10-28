@@ -53,7 +53,9 @@ class Model(nn.Module):
         self.relu = nn.ReLU()
     def forward(self, x):
         x = self.linear1(x)
+        x = self.relu(x)
         x = self.linear2(x)
+        x = self.relu(x)
         x = self.linear3(x)
         out = self.relu(x)
         return out
@@ -106,7 +108,6 @@ for epoch in range(num_epochs):
     val_pred = []
     with torch.no_grad():
         for samples, labels in val_loader:
-            optimizer.zero_grad()
             samples, labels = samples.to(device), labels.to(device)
             y_pred = model(samples)
             loss = criterion(y_pred, labels)
