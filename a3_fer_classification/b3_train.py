@@ -49,11 +49,21 @@ class Model(nn.Module):
     def __init__(self, input_dims, num_classes):
         super().__init__()
         self.flatten = nn.Flatten()
-        self.linear = nn.Linear(input_dims, num_classes)
+        self.linear1 = nn.Linear(input_dims, 1024)
+        self.linear2 = nn.Linear(1024, 512)
+        self.linear3 = nn.Linear(512, 256)
+        self.linear4 = nn.Linear(256, num_classes)
+        self.tanh = nn.Tanh()
     
     def forward(self, x):
         x = self.flatten(x)
-        out = self.linear(x)
+        x = self.linear1(x)
+        x = self.tanh(x)
+        x = self.linear2(x)
+        x = self.tanh(x)
+        x = self.linear3(x)
+        x = self.tanh(x)
+        out = self.linear4(x)
         return out
     
 model = Model(input_dims=image_height*image_width, num_classes=7).to(device)
@@ -121,7 +131,7 @@ plt.ylabel('Accuracy')
 plt.legend()
 plt.grid(True)
 
-fig.savefig("c1_visualization.png")            
+fig.savefig("c3_visualization.png")            
 
 ##### END
 end_time = time.time()
