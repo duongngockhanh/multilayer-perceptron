@@ -1,1 +1,4 @@
-https://drive.google.com/file/d/1bFx6uiQV-GUGwL3PwYRIYdmRCF9hS2bP
+Link: https://drive.google.com/file/d/1bFx6uiQV-GUGwL3PwYRIYdmRCF9hS2bP
+
+Train: {'happy': 7215, 'sad': 4830, 'fear': 4097, 'surprise': 3171, 'neutral': 4965, 'angry': 3995, 'disgust': 436}
+Test:  {'happy': 1774, 'sad': 1247, 'fear': 1024, 'surprise':  831, 'neutral': 1233, 'angry':  958, 'disgust': 111}
